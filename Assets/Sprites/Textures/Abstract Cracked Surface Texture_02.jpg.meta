@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Abstract Cracked Surface Texture_02_0: -2560496716878023358
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

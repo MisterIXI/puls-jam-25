@@ -16,6 +16,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void PlayerSunk()
     {
-        Debug.Log("Player sunk");
+        GetComponent<PlayerFishCounter>().ClearFishCounter();
+        RespawnManager.Instance.RespawnPlayer();
     }
 }
