@@ -11,7 +11,7 @@ public class SoundManager : MonoBehaviour
     float tempSoundVolume;
     void Start()
     {
-   
+
 
         if (!PlayerPrefs.HasKey("musicVolume"))
         {
@@ -22,8 +22,8 @@ public class SoundManager : MonoBehaviour
             SetMusicVolume();
             SetSoundVolume();
         }
-        
-  
+
+
     }
 
     public void SetMusicVolume()
@@ -33,8 +33,9 @@ public class SoundManager : MonoBehaviour
         tempMusicVolume = volume;
     }
 
-    public void SetSoundVolume() {
-        
+    public void SetSoundVolume()
+    {
+
         float volume = soundSlider.value;
         PlayerPrefs.SetFloat("soundVolume", volume);
         tempSoundVolume = volume;
@@ -54,17 +55,17 @@ public class SoundManager : MonoBehaviour
         tempSoundVolume = soundSlider.value;
 
 
-       
+
     }
 
     public void Save()
     {
-      SetMusicVolume();
-      SetSoundVolume();
+        SetMusicVolume();
+        SetSoundVolume();
     }
 
 
-      public void ResetSliders()
+    public void ResetSliders()
     {
         musicSlider.value = tempMusicVolume;
         soundSlider.value = tempSoundVolume;

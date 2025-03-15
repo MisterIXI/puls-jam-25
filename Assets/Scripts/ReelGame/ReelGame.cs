@@ -36,6 +36,8 @@ public class ReelGame : MonoBehaviour
         if (hasWon)
         {
             PlayerFishCounter.Instance.AddFish();
+            PlayerTriggerCheck.Instance.DestroyFishSwarm();
+            FishSwarmSpawnManager.Instance.SpawnFishSwarm();
             Debug.Log("You caught a fish!");
         }
         else

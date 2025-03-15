@@ -1,16 +1,28 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerTriggerCheck : MonoBehaviour
 {
+    public static PlayerTriggerCheck Instance;
     bool canInteract = false;
     [SerializeField] private ReelGame _reelGame;
+    [SerializeField] private GameObject interactingFishSwarm;
+
+    private void Awake()
+    {
+        if(Instance == null)
+            Instance = this;
+        else
+            Destroy(this);
+    }
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "FishSwarm")
         {
             Debug.Log("Triggered");
+            interactingFishSwarm = other.gameObject;
             canInteract = true;
         }
     }
@@ -20,6 +32,7 @@ public class PlayerTriggerCheck : MonoBehaviour
         if (other.tag == "FishSwarm")
         {
             Debug.Log("Triggered exit");
+            interactingFishSwarm = null;
             canInteract = false;
         }
     }
@@ -32,5 +45,10 @@ public class PlayerTriggerCheck : MonoBehaviour
             _reelGame.StartNewGame();
             Debug.Log("Interacting with fish swarm: Starting mini game");
         }
+    }
+
+    public void DestroyFishSwarm()
+    {
+        Destroy(interactingFishSwarm);
     }
 }
