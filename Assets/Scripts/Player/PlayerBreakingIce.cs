@@ -26,6 +26,8 @@ public class PlayerBreakingIce : MonoBehaviour
         lastIceBreak = new Vector2(transform.position.x, transform.position.y);
         yield return new WaitForSeconds(timeToBreakIce);
         yield return new WaitUntil(() => Vector2.Distance(lastIceBreak, transform.position) > iceHolePrefab.transform.localScale.y);
+        RaycastHit2D hit = Physics2D.Raycast(lastIceBreak, Vector2.down, 1);
+        if(hit.collider?.gameObject.tag == "SafeZone") yield break;
         Instantiate(iceHolePrefab, lastIceBreak, Quaternion.identity);
     }
 }

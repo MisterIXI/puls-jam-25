@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 3
   tags:
   - FishSwarm
+  - IceHole
+  - SaveZone
   layers:
   - Default
   - TransparentFX

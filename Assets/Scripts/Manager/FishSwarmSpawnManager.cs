@@ -30,7 +30,21 @@ public class FishSwarmSpawnManager : MonoBehaviour
 
     public void SpawnFishSwarm()
     {
+        StartCoroutine(SpawnFishSwarmRoutine());
+    }
+    
+
+    IEnumerator SpawnFishSwarmRoutine()
+    {
         Vector2 spawnPoint = (Random.insideUnitSphere * spawnRadius);
+        RaycastHit2D hit = Physics2D.Raycast(spawnPoint, Vector2.down, 1);
+        
+        while (hit.collider?.gameObject.tag == "IceHole")
+        {
+            yield return new WaitForSeconds(2);
+            spawnPoint = (Random.insideUnitSphere * spawnRadius);
+            hit = Physics2D.Raycast(spawnPoint, Vector2.down, 1);
+        }
         Instantiate(fishSwarmPrefab, spawnPoint, Quaternion.identity);
     }
 }
