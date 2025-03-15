@@ -4,7 +4,7 @@ public class ReelFish : MonoBehaviour
 {
     [SerializeField] private GameObject _reelBackground;
     [SerializeField] private Vector2 _dirChangeInterval;
-    [SerializeField] private float _burstSpeed;
+    [SerializeField] private Vector2 _burstSpeed = new Vector2(0.3f,1.0f);
     [SerializeField][Range(0.0f,1.0f)] private float _decayRate = 0.5f;
 
     private float _burstCooldown;
@@ -23,7 +23,11 @@ public class ReelFish : MonoBehaviour
         if (_burstCooldown <= 0)
         {
             _burstCooldown = Random.Range(_dirChangeInterval.x, _dirChangeInterval.y);
-            _currVelocity = Random.Range(-_burstSpeed, _burstSpeed);
+            _currVelocity = Random.Range(_burstSpeed.x, _burstSpeed.y);
+            if (Random.value > 0.5f)
+            {
+                _currVelocity *= -1;
+            }
         }
         else
         {
