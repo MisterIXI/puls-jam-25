@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Random = UnityEngine.Random;
 
 public class PlayerTriggerCheck : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class PlayerTriggerCheck : MonoBehaviour
     bool canInteract = false;
     [SerializeField] private ReelGame _reelGame;
     [SerializeField] private GameObject interactingFishSwarm;
+    [SerializeField] private AudioClip startFishingSound;
 
     private void Awake()
     {
@@ -43,6 +45,7 @@ public class PlayerTriggerCheck : MonoBehaviour
         if (context.started && _reelGame.gameObject.activeInHierarchy == false)
         {
             _reelGame.StartNewGame();
+            AudioManager.Instance.PlayClip(startFishingSound, transform.position, PlayerPrefs.GetFloat("soundVolume"), Random.Range(0.9f, 1.1f));
             Debug.Log("Interacting with fish swarm: Starting mini game");
         }
     }
