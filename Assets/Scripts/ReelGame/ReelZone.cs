@@ -26,6 +26,12 @@ public class ReelZone : MonoBehaviour
     private void Start() {
         _progressBar.SetProgress(0.3f);
     }
+
+    public void ResetPosition()
+    {
+        transform.localPosition = new Vector3(0, 0, 0);
+        _curReelSpeed = 0;
+    }
     private void FixedUpdate()
     {
         if (_isReeling)

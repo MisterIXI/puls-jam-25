@@ -1,8 +1,12 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class FishingProgressBar : MonoBehaviour
 {
+    public Action OnProgressComplete;
+    public Action OnProgressLose;
     [SerializeField] private GameObject _reelBackground;
     [SerializeField] private Gradient _progressGradient;
     private float _leftOffset;
@@ -38,5 +42,13 @@ public class FishingProgressBar : MonoBehaviour
         Progress = Mathf.Clamp(progress, 0.0f, 1.0f);
         UpdatePosition();
         UpdateColor();
+        if(Progress >= 1.0f)
+        {
+            OnProgressComplete?.Invoke();
+        }
+        else if(Progress <= 0.0f)
+        {
+            OnProgressLose?.Invoke();
+        }
     }
 }

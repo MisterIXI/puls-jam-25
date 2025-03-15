@@ -17,6 +17,16 @@ public class ReelFish : MonoBehaviour
         FISH_SIZE = GetComponent<SpriteRenderer>().bounds.size.y;
         MAX_FISH_DISTANCE = (_reelBackground.transform.localScale.y - FISH_SIZE) / 2;
     }
+
+    public void RandomPosition()
+    {
+        transform.localPosition = new Vector3(
+            transform.localPosition.x,
+            Random.Range(-MAX_FISH_DISTANCE, MAX_FISH_DISTANCE),
+            transform.localPosition.z
+        );
+    }
+    
     private void FixedUpdate()
     {
         _currVelocity = Mathf.MoveTowards(_currVelocity, 0, _decayRate * Time.fixedDeltaTime);

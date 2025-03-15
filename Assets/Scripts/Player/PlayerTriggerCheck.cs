@@ -2,8 +2,10 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerTriggerCheck : MonoBehaviour
-{    
+{
     bool canInteract = false;
+    [SerializeField] private ReelGame _reelGame;
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "FishSwarm")
@@ -21,11 +23,14 @@ public class PlayerTriggerCheck : MonoBehaviour
             canInteract = false;
         }
     }
-    
+
     public void InteractWithFishSwarm(InputAction.CallbackContext context)
     {
-        if(!canInteract) return;
-        if(context.started)
+        if (!canInteract) return;
+        if (context.started && _reelGame.gameObject.activeInHierarchy == false)
+        {
+            _reelGame.StartNewGame();
             Debug.Log("Interacting with fish swarm: Starting mini game");
+        }
     }
 }
