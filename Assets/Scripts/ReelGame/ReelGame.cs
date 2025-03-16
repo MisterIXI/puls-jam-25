@@ -18,7 +18,7 @@ public class ReelGame : MonoBehaviour
     public void StartNewGame()
     {
         gameObject.SetActive(true);
-        _audioSource = AudioManager.Instance.PlayClip(reelSound,transform.position, PlayerPrefs.GetFloat("soundVolume"), Random.Range(0.9f, 1.1f));
+        _audioSource = AudioManager.Instance.PlayClip(reelSound, transform.position, PlayerPrefs.GetFloat("soundVolume"), Random.Range(0.9f, 1.1f));
         foreach (Transform child in transform)
         {
             child.gameObject.SetActive(true);
@@ -26,7 +26,7 @@ public class ReelGame : MonoBehaviour
         _fish.RandomPosition();
         _reelZone.ResetPosition();
         _progressBar.SetProgress(0.0f);
-        PlayerMovement.Instance.MovementDisabled = true;
+        PlayerMovement.Instance.EnableMovement();
     }
 
     public void EndGame(bool hasWon)
@@ -43,7 +43,7 @@ public class ReelGame : MonoBehaviour
             PlayerFishCounter.Instance.AddFish();
             PlayerTriggerCheck.Instance.DestroyFishSwarm();
             FishSwarmSpawnManager.Instance.SpawnFishSwarm();
-            AudioManager.Instance.PlayClip(fishCaughtSounds[Random.Range(0, fishCaughtSounds.Length)],transform.position, PlayerPrefs.GetFloat("soundVolume")*1.3f, Random.Range(0.9f, 1.1f));
+            AudioManager.Instance.PlayClip(fishCaughtSounds[Random.Range(0, fishCaughtSounds.Length)], transform.position, PlayerPrefs.GetFloat("soundVolume") * 1.3f, Random.Range(0.9f, 1.1f));
             Debug.Log("You caught a fish!");
 
         }
@@ -51,6 +51,6 @@ public class ReelGame : MonoBehaviour
         {
             Debug.Log("You lost the fish!");
         }
-        PlayerMovement.Instance.MovementDisabled = false;
+        PlayerMovement.Instance.EnableMovement();
     }
 }
