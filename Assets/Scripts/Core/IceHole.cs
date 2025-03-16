@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 public class IceHole : MonoBehaviour
@@ -9,6 +10,14 @@ public class IceHole : MonoBehaviour
 
     private IEnumerator Start()
     {
+        RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, Vector2.down, 1);
+        foreach (RaycastHit2D hit in hits)
+        {
+            if(hit.collider?.tag =="SaveZone")
+                Destroy(gameObject);
+        }
+
+
         while (transform.localScale.x < maxSize)
         {
             yield return null;
