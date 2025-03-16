@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
@@ -23,7 +24,6 @@ public class PlayerTriggerCheck : MonoBehaviour
     {
         if (other.tag == "FishSwarm")
         {
-            Debug.Log("Triggered");
             interactingFishSwarm = other.gameObject;
             canInteract = true;
         }
@@ -33,7 +33,6 @@ public class PlayerTriggerCheck : MonoBehaviour
     {
         if (other.tag == "FishSwarm")
         {
-            Debug.Log("Triggered exit");
             interactingFishSwarm = null;
             canInteract = false;
         }
@@ -46,12 +45,20 @@ public class PlayerTriggerCheck : MonoBehaviour
         {
             _reelGame.StartNewGame();
             AudioManager.Instance.PlayClip(startFishingSound, transform.position, PlayerPrefs.GetFloat("soundVolume"), Random.Range(0.9f, 1.1f));
-            Debug.Log("Interacting with fish swarm: Starting mini game");
         }
     }
 
     public void DestroyFishSwarm()
     {
-        Destroy(interactingFishSwarm);
+        ParticleSystem particleSystem = interactingFishSwarm.GetComponentInChildren<ParticleSystem>();
+        Destroy(interactingFishSwarm.GetComponent<CircleCollider2D>());
+        var main = particleSystem.main;
+        Debug.Log("Destroying fish swarm: " + particleSystem.totalTime);
+        main.loop = false;
+        
+
+        
+        
+        Destroy(interactingFishSwarm, 10);
     }
 }

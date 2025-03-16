@@ -37,12 +37,10 @@ public class AudioManager : MonoBehaviour
         _backgroundMusicSource = backgroundMusicSourceObject.AddComponent<AudioSource>();
         
         PlayBackgroundMusic(backgroundMusic);
-        PlayClip(backgroundSound, Vector3.zero,PlayerPrefs.GetFloat("soundVolume"));
+        PlayClip(backgroundSound, Vector3.zero,true, PlayerPrefs.GetFloat("soundVolume"));
     }
 
-
-
-    public AudioSource PlayClip(AudioClip clip, Vector3 positionToPlay, float volume = 0.5f, float pitch = 1f)
+    public AudioSource PlayClip(AudioClip clip, Vector3 positionToPlay, bool loop = false, float volume = 0.5f, float pitch = 1f)
     {
         for (int i = 0; i < _audioSourceCount; i++)
         {
@@ -53,6 +51,7 @@ public class AudioManager : MonoBehaviour
                 _audioSources[i].pitch = pitch;
                 _audioSources[i].transform.position = positionToPlay;
                 _audioSources[i].Play();
+                _audioSources[i].loop = loop;
                 return _audioSources[i];
             }
         }
@@ -61,8 +60,14 @@ public class AudioManager : MonoBehaviour
         newAudioSource.volume = volume;
         newAudioSource.pitch = pitch;
         newAudioSource.transform.position = positionToPlay;
+        newAudioSource.loop = loop;
         newAudioSource.Play();
         return newAudioSource;
+    }
+
+    public AudioSource PlayClip(AudioClip clip, Vector3 positionToPlay, float volume = 0.5f, float pitch = 1f)
+    {
+        return PlayClip(clip, positionToPlay,false, volume, pitch);
     }
 
     public void PlayBackgroundMusic(AudioClip clip)

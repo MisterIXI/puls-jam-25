@@ -30,7 +30,7 @@ public class PlayerBreakingIce : MonoBehaviour
         yield return new WaitUntil(() => Vector2.Distance(lastIceBreak, transform.position) > iceHolePrefab.transform.localScale.y);
         RaycastHit2D hit = Physics2D.Raycast(lastIceBreak, Vector2.down, 1);
         if(hit.collider?.gameObject.tag == "SafeZone") yield break;
-        AudioManager.Instance.PlayClip(iceBreakSounds[Random.Range(0, iceBreakSounds.Length)],transform.position, PlayerPrefs.GetFloat("soundVolume")*1.2f, Random.Range(0.9f, 1.1f));
+        AudioManager.Instance.PlayClip(iceBreakSounds[Random.Range(0, iceBreakSounds.Length)],transform.position, PlayerPrefs.GetFloat("soundVolume")*1.4f, Random.Range(0.9f, 1.1f));
         Instantiate(iceHolePrefab, lastIceBreak, Quaternion.identity);
 
     }
