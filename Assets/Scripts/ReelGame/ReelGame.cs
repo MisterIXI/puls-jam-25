@@ -26,7 +26,7 @@ public class ReelGame : MonoBehaviour
         _fish.RandomPosition();
         _reelZone.ResetPosition();
         _progressBar.SetProgress(0.0f);
-
+        PlayerMovement.Instance.MovementDisabled = true;
     }
 
     public void EndGame(bool hasWon)
@@ -51,5 +51,6 @@ public class ReelGame : MonoBehaviour
         {
             Debug.Log("You lost the fish!");
         }
+        PlayerMovement.Instance.MovementDisabled = false;
     }
 }

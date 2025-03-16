@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float movementSpeed;
     [SerializeField] private float deceleration = 5f;
+    [SerializeField] private float _acceleration = 5f;
     private Vector2 _movementInput;
     private Rigidbody2D _rigidbody;
     private Vector2 _currentVelocity;
@@ -16,8 +17,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private AudioClip[] footsepSounds2;
     private bool _canPlayFootstepSound = true;
 
+    public bool MovementDisabled = false;
+    public static PlayerMovement Instance;
     private void Awake()
     {
+        if(Instance == null)
+            Instance = this;
+        else
+            Destroy(this);
         _rigidbody = GetComponent<Rigidbody2D>();
         _rigidbody.linearDamping = 5f;
     }
@@ -35,13 +42,17 @@ public class PlayerMovement : MonoBehaviour
                 _canPlayFootstepSound = false;
                 StartCoroutine(FootstepSoundCooldown());
             }
+            _currentVelocity = Vector2.MoveTowards(_currentVelocity, _movementInput * movementSpeed, _acceleration * Time.fixedDeltaTime);
         }
         else
         {
             // slow down player
-            _currentVelocity = Vector2.Lerp(_currentVelocity, Vector2.zero, deceleration * Time.fixedDeltaTime);
+            _currentVelocity = Vector2.MoveTowards(_currentVelocity, Vector2.zero, deceleration * Time.fixedDeltaTime);
         }
-
+        if (MovementDisabled)
+        {
+            _currentVelocity = Vector2.zero;
+        }
         _rigidbody.linearVelocity = _currentVelocity;
     }
     
