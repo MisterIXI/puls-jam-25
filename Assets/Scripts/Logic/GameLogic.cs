@@ -68,7 +68,9 @@ public class GameLogic : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public void LoadMainMenu(){
+    public void LoadMainMenu()
+    {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
     }
 
