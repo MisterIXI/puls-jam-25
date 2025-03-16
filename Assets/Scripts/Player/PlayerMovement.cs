@@ -37,8 +37,8 @@ public class PlayerMovement : MonoBehaviour
             _currentVelocity = _movementInput * movementSpeed;
             if (_canPlayFootstepSound)
             {
-                AudioManager.Instance.PlayClip(footsepSounds1[Random.Range(0, footsepSounds1.Length)],transform.position, PlayerPrefs.GetFloat("soundVolume")*0.3f, UnityEngine.Random.Range(0.9f, 1.1f));
-                AudioManager.Instance.PlayClip(footsepSounds2[Random.Range(0, footsepSounds2.Length)],transform.position, PlayerPrefs.GetFloat("soundVolume")*0.3f, UnityEngine.Random.Range(0.9f, 1.1f));
+                AudioManager.Instance.PlayClip(footsepSounds1[Random.Range(0, footsepSounds1.Length)],transform.position, PlayerPrefs.GetFloat("soundVolume")*0.15f, UnityEngine.Random.Range(0.9f, 1.1f));
+                AudioManager.Instance.PlayClip(footsepSounds2[Random.Range(0, footsepSounds2.Length)],transform.position, PlayerPrefs.GetFloat("soundVolume")*0.15f, UnityEngine.Random.Range(0.9f, 1.1f));
                 _canPlayFootstepSound = false;
                 StartCoroutine(FootstepSoundCooldown());
             }

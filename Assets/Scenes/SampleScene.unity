@@ -1311,6 +1311,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 3
   deceleration: 5
+  _acceleration: 5
   _stepSoundDelay: 0.5
   footsepSounds1:
   - {fileID: 8300000, guid: 9e51de340e68f804ca23a109817c3ba7, type: 3}
@@ -1318,6 +1319,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9a71fc4c95c71b848a502a007487ebaa, type: 3}
   - {fileID: 8300000, guid: 41ede30e05734ee4599f5ed3bfa1f2b2, type: 3}
   footsepSounds2:
+  - {fileID: 8300000, guid: 9ab140f9b68408d4386d57b46d85e70e, type: 3}
   - {fileID: 8300000, guid: 2355e14d2e72d6f4d8f05cb80ae677f1, type: 3}
   - {fileID: 8300000, guid: 66c6a36183307a7439fc15972ebacecc, type: 3}
   - {fileID: 8300000, guid: 4122e5f3431154a4ca10d034fbb86f6f, type: 3}
@@ -1326,7 +1328,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 214c2b12990841d45906d53bddac4743, type: 3}
   - {fileID: 8300000, guid: fbdad2ab9360a8242a229316d643fbe2, type: 3}
   - {fileID: 8300000, guid: 99b21433160f31640bde602a2daee23a, type: 3}
-  - {fileID: 8300000, guid: 9ab140f9b68408d4386d57b46d85e70e, type: 3}
+  MovementDisabled: 0
 --- !u!114 &70826224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1498,10 +1500,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b457b04d85c327344bfd4d155e832cb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fallIntoWaterSound:
-  - {fileID: 8300000, guid: 2907e68d4799d1e4495e8d218e019530, type: 3}
-  - {fileID: 8300000, guid: 6ce9ae832efa4bc4ea3a2e79375d2fb2, type: 3}
-  - {fileID: 8300000, guid: d3dd8ccecc140ae42b44a6626174dfad, type: 3}
+  fallIntoWaterSound: []
 --- !u!114 &70826227
 MonoBehaviour:
   m_ObjectHideFlags: 0
