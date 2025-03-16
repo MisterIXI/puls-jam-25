@@ -52,6 +52,11 @@ MonoBehaviour:
   _reelZone: {fileID: 259710524837006084}
   _progressBar: {fileID: 5844723476805752579}
   _reelBackground: {fileID: 4535858106844781021}
+  reelSound: {fileID: 8300000, guid: 47faba61c8c817a4facf7d3cdf65d433, type: 3}
+  fishCaughtSounds:
+  - {fileID: 8300000, guid: 2907e68d4799d1e4495e8d218e019530, type: 3}
+  - {fileID: 8300000, guid: 6ce9ae832efa4bc4ea3a2e79375d2fb2, type: 3}
+  - {fileID: 8300000, guid: d3dd8ccecc140ae42b44a6626174dfad, type: 3}
 --- !u!1 &4535858106844781021
 GameObject:
   m_ObjectHideFlags: 0
@@ -482,4 +487,4 @@ MonoBehaviour:
   _maxReelSpeed: 0.5
   _reelAcceleration: 0.5
   _progressDecayRate: 0.2
-  _progressRate: 0.5
+  _progressRate: 0.3
