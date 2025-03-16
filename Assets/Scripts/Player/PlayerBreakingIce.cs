@@ -12,7 +12,9 @@ public class PlayerBreakingIce : MonoBehaviour
     [SerializeField] private float timeToBreakIce = 1f;
     [SerializeField] private AudioClip[] iceBreakSounds;
     private Rigidbody2D rb;
-    
+
+    [SerializeField] private AudioClip[] splashSounds;
+
     [SerializeField] private GameObject breakingIceIndicatorPrefab;
     [SerializeField] private float timeUntilIceBreaks = 1f;
     GameObject spawnedIceBreakingIndicator;
@@ -56,7 +58,14 @@ public class PlayerBreakingIce : MonoBehaviour
 
     void BreakIceIndicator()
     {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 1);
+        if (hit.collider?.gameObject.tag == "SafeZone")
+        {
+            isSpawnedIceBreakingIndicator = false;
+            return;
+        }
         spawnedIceBreakingIndicator = Instantiate(breakingIceIndicatorPrefab, transform.position, Quaternion.identity);
+        spawnedIceBreakingIndicator.GetComponent<IceBreakingIndicator>().SpawnIceAtPlayerPosition();
     }
 
     IEnumerator BreakIce()
@@ -67,8 +76,8 @@ public class PlayerBreakingIce : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(lastIceBreak, Vector2.down, 1);
         if(hit.collider?.gameObject.tag == "SafeZone") yield break;
         // AudioManager.Instance.PlayClip(iceBreakSounds[Random.Range(0, iceBreakSounds.Length)],transform.position, PlayerPrefs.GetFloat("soundVolume")*1.4f, Random.Range(0.9f, 1.1f));
-        Instantiate(iceHolePrefab, lastIceBreak, Quaternion.identity);
-
+        GameObject spawnBreakIndicator = Instantiate(breakingIceIndicatorPrefab, transform.position, Quaternion.identity);
+        spawnBreakIndicator.GetComponent<IceBreakingIndicator>().SpawnIceOnPreviousPosition();
     }
 
     private void OnDisable()
@@ -79,7 +88,15 @@ public class PlayerBreakingIce : MonoBehaviour
     public void SpawnIceHoleAtPlayerPosition()
     {
         lastIceBreak = new Vector2(transform.position.x, transform.position.y);
-        AudioManager.Instance.PlayClip(iceBreakSounds[Random.Range(0, iceBreakSounds.Length)],transform.position, PlayerPrefs.GetFloat("soundVolume")*1.4f, Random.Range(0.9f, 1.1f));
+        AudioManager.Instance.PlayClip(splashSounds[Random.Range(0, splashSounds.Length)],transform.position, PlayerPrefs.GetFloat("soundVolume")*1.4f, Random.Range(0.9f, 1.1f));
         Instantiate(iceHolePrefab, lastIceBreak, Quaternion.identity);
     }
+    
+    public void SpawnIceHoleAtOldPlayerPosition(Vector2 position)
+    {
+        lastIceBreak = position;
+        AudioManager.Instance.PlayClip(splashSounds[Random.Range(0, splashSounds.Length)], position, PlayerPrefs.GetFloat("soundVolume")*1.4f, Random.Range(0.9f, 1.1f));
+        Instantiate(iceHolePrefab, position, Quaternion.identity);
+    }
+    
 }
