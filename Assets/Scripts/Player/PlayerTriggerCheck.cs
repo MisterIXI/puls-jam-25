@@ -11,10 +11,12 @@ public class PlayerTriggerCheck : MonoBehaviour
     [SerializeField] private ReelGame _reelGame;
     [SerializeField] private GameObject interactingFishSwarm;
     [SerializeField] private AudioClip startFishingSound;
+    public Action CanInteractHasChanged;
+    public bool CanInteract => canInteract;
 
     private void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
             Instance = this;
         else
             Destroy(this);
@@ -26,6 +28,7 @@ public class PlayerTriggerCheck : MonoBehaviour
         {
             interactingFishSwarm = other.gameObject;
             canInteract = true;
+            CanInteractHasChanged?.Invoke();
         }
     }
 
@@ -35,6 +38,7 @@ public class PlayerTriggerCheck : MonoBehaviour
         {
             interactingFishSwarm = null;
             canInteract = false;
+            CanInteractHasChanged?.Invoke();
         }
     }
 
