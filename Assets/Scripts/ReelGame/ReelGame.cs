@@ -36,6 +36,7 @@ public class ReelGame : MonoBehaviour
 
     public void EndGame(bool hasWon)
     {
+        if(gameObject.activeInHierarchy == false) return;
         try
         {
             // if (!hasWon) return;
