@@ -22543,7 +22543,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12b575e426115694fabc8dcabb21bc53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameDuration: 500
+  gameDuration: 600
   timer: 0
   player: {fileID: 70826217}
   timerText: {fileID: 1791897766}
