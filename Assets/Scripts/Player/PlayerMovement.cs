@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 _movementInput;
     private Rigidbody2D _rigidbody;
     private Vector2 _currentVelocity;
+    public bool canMove = true;
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -18,18 +19,26 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_movementInput.magnitude > 0)
+
+        if (canMove)
         {
-            // move player
-            _currentVelocity = _movementInput * movementSpeed;
+            if (_movementInput.magnitude > 0)
+            {
+                // move player
+                _currentVelocity = _movementInput * movementSpeed;
+            }
+            else
+            {
+                // slow down player
+                _currentVelocity = Vector2.Lerp(_currentVelocity, Vector2.zero, deceleration * Time.fixedDeltaTime);
+            }
+
+            _rigidbody.linearVelocity = _currentVelocity;
         }
         else
         {
-            // slow down player
-            _currentVelocity = Vector2.Lerp(_currentVelocity, Vector2.zero, deceleration * Time.fixedDeltaTime);
+            _currentVelocity = Vector2.zero;
         }
-
-        _rigidbody.linearVelocity = _currentVelocity;
 
     }
 
@@ -42,5 +51,15 @@ public class PlayerMovement : MonoBehaviour
     public void Move(Vector2 direction)
     {
         _movementInput = direction * movementSpeed;
+    }
+
+     public void DisableMovement()
+    {
+        canMove = false;
+    }
+
+    public void EnableMovement()
+    {
+        canMove = true;
     }
 }
