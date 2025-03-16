@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PlayerBreakingIce : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class PlayerBreakingIce : MonoBehaviour
     [SerializeField] private GameObject iceHolePrefab;
     private Vector2 lastIceBreak;
     [SerializeField] private float timeToBreakIce = 1f;
+    [SerializeField] private AudioClip[] iceBreakSounds;
     
     private void Start()
     {
@@ -28,6 +30,8 @@ public class PlayerBreakingIce : MonoBehaviour
         yield return new WaitUntil(() => Vector2.Distance(lastIceBreak, transform.position) > iceHolePrefab.transform.localScale.y);
         RaycastHit2D hit = Physics2D.Raycast(lastIceBreak, Vector2.down, 1);
         if(hit.collider?.gameObject.tag == "SafeZone") yield break;
+        AudioManager.Instance.PlayClip(iceBreakSounds[Random.Range(0, iceBreakSounds.Length)],transform.position, PlayerPrefs.GetFloat("soundVolume")*1.4f, Random.Range(0.9f, 1.1f));
         Instantiate(iceHolePrefab, lastIceBreak, Quaternion.identity);
+
     }
 }

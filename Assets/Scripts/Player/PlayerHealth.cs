@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     private bool _isInvincible = false;
+    [SerializeField] private AudioClip[] fallIntoWaterSound;
 
     public void SetIsInvincible(bool value)
     {
@@ -17,6 +18,7 @@ public class PlayerHealth : MonoBehaviour
     public void PlayerSunk()
     {
         GetComponent<PlayerFishCounter>().ClearFishCounter();
+        AudioManager.Instance.PlayClip(fallIntoWaterSound[Random.Range(0, fallIntoWaterSound.Length)], transform.position, PlayerPrefs.GetFloat("soundVolume"), Random.Range(0.9f, 1.1f));
         RespawnManager.Instance.RespawnPlayer();
     }
 }
