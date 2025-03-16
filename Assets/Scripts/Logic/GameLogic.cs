@@ -9,8 +9,11 @@ public class GameLogic : MonoBehaviour
     public GameObject player;
     public TextMeshProUGUI timerText;
 
+    private bool isPaused = false;
     [Header("UI Elements")]
     public GameObject gameOverPanel;
+    
+    public GameObject pauseMenuPanel;
     void Start()
     {
         timer = gameDuration;
@@ -31,6 +34,11 @@ public class GameLogic : MonoBehaviour
         if (timer <= 0f)
         {
             GameOver();
+        }
+
+          if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Pause();
         }
     }
 
@@ -70,5 +78,29 @@ public class GameLogic : MonoBehaviour
         int seconds = Mathf.FloorToInt(timer % 60);
         
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
+    
+    public void Pause()
+    {
+
+        if (isPaused)
+        {
+
+            if (pauseMenuPanel != null)
+            {
+                pauseMenuPanel.SetActive(false);
+            }
+            Time.timeScale = 1f;
+            isPaused = false;
+        }
+        else
+        {
+            if (pauseMenuPanel != null)
+            {
+                pauseMenuPanel.SetActive(true);
+            }
+            Time.timeScale = 0f;
+            isPaused = true;
+        }
     }
 }
