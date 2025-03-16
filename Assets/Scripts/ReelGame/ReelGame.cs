@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class ReelGame : MonoBehaviour
@@ -11,9 +12,11 @@ public class ReelGame : MonoBehaviour
     [SerializeField] private AudioClip[] fishCaughtSounds;
     public static ReelGame Instance;
     private AudioSource _audioSource;
+    public Action GameStarted;
+    public Action GameEnded;
     private void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
             Instance = this;
         else
             Destroy(this);
@@ -23,7 +26,7 @@ public class ReelGame : MonoBehaviour
     public void StartNewGame()
     {
         gameObject.SetActive(true);
-        _audioSource = AudioManager.Instance.PlayClip(reelSound, transform.position, true, PlayerPrefs.GetFloat("soundVolume"), Random.Range(0.9f, 1.1f));
+        _audioSource = AudioManager.Instance.PlayClip(reelSound, transform.position, true, PlayerPrefs.GetFloat("soundVolume"), UnityEngine.Random.Range(0.9f, 1.1f));
         foreach (Transform child in transform)
         {
             child.gameObject.SetActive(true);
@@ -32,6 +35,7 @@ public class ReelGame : MonoBehaviour
         _reelZone.ResetPosition();
         _progressBar.SetProgress(0.33f);
         PlayerMovement.Instance.DisableMovement();
+        GameStarted?.Invoke();
     }
 
     public void EndGame(bool hasWon)
@@ -53,7 +57,7 @@ public class ReelGame : MonoBehaviour
                 PlayerFishCounter.Instance.AddFish();
                 PlayerTriggerCheck.Instance.DestroyFishSwarm();
                 FishSwarmSpawnManager.Instance.SpawnFishSwarm();
-                AudioManager.Instance.PlayClip(fishCaughtSounds[Random.Range(0, fishCaughtSounds.Length)], transform.position, PlayerPrefs.GetFloat("soundVolume") * 1.3f, Random.Range(0.9f, 1.1f));
+                AudioManager.Instance.PlayClip(fishCaughtSounds[UnityEngine.Random.Range(0, fishCaughtSounds.Length)], transform.position, PlayerPrefs.GetFloat("soundVolume") * 1.3f, UnityEngine.Random.Range(0.9f, 1.1f));
                 Debug.Log("You caught a fish!");
 
             }
@@ -63,6 +67,7 @@ public class ReelGame : MonoBehaviour
                 FishSwarmSpawnManager.Instance.SpawnFishSwarm();
                 Debug.Log("You lost the fish!");
             }
+            GameEnded?.Invoke();
         }
         finally
         {
