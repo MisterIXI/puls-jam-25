@@ -5,22 +5,58 @@ using Random = UnityEngine.Random;
 
 public class PlayerBreakingIce : MonoBehaviour
 {
+    public static PlayerBreakingIce instance;
     [SerializeField] private int breakingDistance = 10;
     [SerializeField] private GameObject iceHolePrefab;
     private Vector2 lastIceBreak;
     [SerializeField] private float timeToBreakIce = 1f;
     [SerializeField] private AudioClip[] iceBreakSounds;
+    private Rigidbody2D rb;
     
+    [SerializeField] private GameObject breakingIceIndicatorPrefab;
+    [SerializeField] private float timeUntilIceBreaks = 1f;
+    GameObject spawnedIceBreakingIndicator;
+    bool isSpawnedIceBreakingIndicator;
+
+    private void Awake()
+    {
+        if(instance == null)
+            instance = this;
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     private void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
         lastIceBreak = transform.position;
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!isSpawnedIceBreakingIndicator && 
+            rb.linearVelocity.magnitude == 0 && 
+            spawnedIceBreakingIndicator == null)
+        {
+            isSpawnedIceBreakingIndicator = true;
+            BreakIceIndicator();
+        }
+        else if(rb.linearVelocity.magnitude != 0)
+        {
+            isSpawnedIceBreakingIndicator = false;
+            Destroy(spawnedIceBreakingIndicator);
+        }
+        
         if (!(Vector2.Distance(lastIceBreak, transform.position) > breakingDistance)) return;
         StartCoroutine(BreakIce());
+    }
+
+    void BreakIceIndicator()
+    {
+        spawnedIceBreakingIndicator = Instantiate(breakingIceIndicatorPrefab, transform.position, Quaternion.identity);
     }
 
     IEnumerator BreakIce()
@@ -30,8 +66,20 @@ public class PlayerBreakingIce : MonoBehaviour
         yield return new WaitUntil(() => Vector2.Distance(lastIceBreak, transform.position) > iceHolePrefab.transform.localScale.y);
         RaycastHit2D hit = Physics2D.Raycast(lastIceBreak, Vector2.down, 1);
         if(hit.collider?.gameObject.tag == "SafeZone") yield break;
-        AudioManager.Instance.PlayClip(iceBreakSounds[Random.Range(0, iceBreakSounds.Length)],transform.position, PlayerPrefs.GetFloat("soundVolume")*1.4f, Random.Range(0.9f, 1.1f));
+        // AudioManager.Instance.PlayClip(iceBreakSounds[Random.Range(0, iceBreakSounds.Length)],transform.position, PlayerPrefs.GetFloat("soundVolume")*1.4f, Random.Range(0.9f, 1.1f));
         Instantiate(iceHolePrefab, lastIceBreak, Quaternion.identity);
 
+    }
+
+    private void OnDisable()
+    {
+        Destroy(spawnedIceBreakingIndicator);
+    }
+
+    public void SpawnIceHoleAtPlayerPosition()
+    {
+        lastIceBreak = new Vector2(transform.position.x, transform.position.y);
+        AudioManager.Instance.PlayClip(iceBreakSounds[Random.Range(0, iceBreakSounds.Length)],transform.position, PlayerPrefs.GetFloat("soundVolume")*1.4f, Random.Range(0.9f, 1.1f));
+        Instantiate(iceHolePrefab, lastIceBreak, Quaternion.identity);
     }
 }

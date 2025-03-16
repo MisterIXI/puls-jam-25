@@ -44,6 +44,7 @@ public class PlayerTriggerCheck : MonoBehaviour
         if (context.started && _reelGame.gameObject.activeInHierarchy == false)
         {
             _reelGame.StartNewGame();
+            GetComponent<PlayerBreakingIce>().enabled = false;
             AudioManager.Instance.PlayClip(startFishingSound, transform.position, PlayerPrefs.GetFloat("soundVolume"), Random.Range(0.9f, 1.1f));
         }
     }
@@ -55,9 +56,6 @@ public class PlayerTriggerCheck : MonoBehaviour
         var main = particleSystem.main;
         Debug.Log("Destroying fish swarm: " + particleSystem.totalTime);
         main.loop = false;
-        
-
-        
         
         Destroy(interactingFishSwarm, 10);
     }

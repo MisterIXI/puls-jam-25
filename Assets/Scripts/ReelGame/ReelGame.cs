@@ -33,6 +33,7 @@ public class ReelGame : MonoBehaviour
     {
         if (!hasWon) return;
         _audioSource.Stop();
+        FindFirstObjectByType<PlayerBreakingIce>().enabled = true;
         gameObject.SetActive(false);
         foreach (Transform child in transform)
         {
