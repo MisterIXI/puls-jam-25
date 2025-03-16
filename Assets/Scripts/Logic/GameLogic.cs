@@ -8,6 +8,7 @@ public class GameLogic : MonoBehaviour
     private bool isGameOver = false;
     public GameObject player;
     public TextMeshProUGUI timerText;
+    public TMP_Text scoreText;
 
     private bool isPaused = false;
     [Header("UI Elements")]
@@ -54,6 +55,8 @@ public class GameLogic : MonoBehaviour
         {
             gameOverPanel.SetActive(true); 
         }
+
+        scoreText.text = "Fish delivered: " + FishChest.Instance.GetFishCount();
     }
 
       public void Restart()
