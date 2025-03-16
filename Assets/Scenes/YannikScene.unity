@@ -13947,26 +13947,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8689342543276153020, guid: d548ca51bc72652499b29f29c6ad2794, type: 3}
-      propertyPath: reelSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 47faba61c8c817a4facf7d3cdf65d433, type: 3}
-    - target: {fileID: 8689342543276153020, guid: d548ca51bc72652499b29f29c6ad2794, type: 3}
-      propertyPath: fishCaughtSounds.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8689342543276153020, guid: d548ca51bc72652499b29f29c6ad2794, type: 3}
-      propertyPath: 'fishCaughtSounds.Array.data[0]'
-      value: 
-      objectReference: {fileID: 8300000, guid: 2907e68d4799d1e4495e8d218e019530, type: 3}
-    - target: {fileID: 8689342543276153020, guid: d548ca51bc72652499b29f29c6ad2794, type: 3}
-      propertyPath: 'fishCaughtSounds.Array.data[1]'
-      value: 
-      objectReference: {fileID: 8300000, guid: 6ce9ae832efa4bc4ea3a2e79375d2fb2, type: 3}
-    - target: {fileID: 8689342543276153020, guid: d548ca51bc72652499b29f29c6ad2794, type: 3}
-      propertyPath: 'fishCaughtSounds.Array.data[2]'
-      value: 
-      objectReference: {fileID: 8300000, guid: d3dd8ccecc140ae42b44a6626174dfad, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
