@@ -26,7 +26,7 @@ public class ReelGame : MonoBehaviour
         _fish.RandomPosition();
         _reelZone.ResetPosition();
         _progressBar.SetProgress(0.0f);
-        PlayerMovement.Instance.EnableMovement();
+        PlayerMovement.Instance.DisableMovement();
     }
 
     public void EndGame(bool hasWon)
