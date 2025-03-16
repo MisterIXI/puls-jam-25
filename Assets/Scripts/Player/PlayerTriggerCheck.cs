@@ -51,12 +51,13 @@ public class PlayerTriggerCheck : MonoBehaviour
 
     public void DestroyFishSwarm()
     {
-        ParticleSystem particleSystem = interactingFishSwarm.GetComponentInChildren<ParticleSystem>();
+        for (int i = 0; i < interactingFishSwarm.transform.childCount; i++)
+        {
+            var main = interactingFishSwarm.transform.GetChild(i).GetComponent<ParticleSystem>().main;
+            main.loop = false;
+        }
         Destroy(interactingFishSwarm.GetComponent<CircleCollider2D>());
-        var main = particleSystem.main;
-        Debug.Log("Destroying fish swarm: " + particleSystem.totalTime);
-        main.loop = false;
-        
+
         Destroy(interactingFishSwarm, 10);
     }
 }
