@@ -30,7 +30,7 @@ public class IceBreakingIndicator : MonoBehaviour
 
     private void OnDestroy()
     {
-        audioSource.Stop();
+        audioSource?.Stop();
         StopAllCoroutines();
     }
 }
